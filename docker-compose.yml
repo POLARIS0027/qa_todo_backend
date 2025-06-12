@@ -1,0 +1,24 @@
+services:
+  qa-todo-api:
+    build: .
+    container_name: qa-todo-backend
+    # Windows에서는 host 네트워크가 지원되지 않으므로 포트 바인딩을 명확히 설정
+    ports:
+      - "0.0.0.0:3000:3000" # 모든 인터페이스에서 접근 허용
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      # SQLite 데이터베이스 영구 저장을 위한 볼륨
+      - qa_todo_data:/app/data
+    restart: unless-stopped
+    networks:
+      - qa-todo-network
+
+volumes:
+  qa_todo_data:
+    driver: local
+
+networks:
+  qa-todo-network:
+    driver: bridge
