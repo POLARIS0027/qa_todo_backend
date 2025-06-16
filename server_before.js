@@ -449,7 +449,6 @@ app.use('*', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`QA教育用Todo APIサーバーがポート${PORT}で稼働中です`);
     console.log(`http://localhost:${PORT} で確認できます`);
-    console.log(`外部アクセス: http://192.168.10.102:${PORT}`);
 });
 
 // 終了処理関数

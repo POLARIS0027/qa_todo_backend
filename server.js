@@ -84,6 +84,8 @@ app.post('/api/register', async (req, res) => {
             return res.status(400).json({ error: 'メールアドレスとパスワードが必要です' });
         }
 
+        // Bug#9: メール重複チェックを意図的に省略
+        /*
         // メール重複チェックを必ず実施
         const existingUser = await new Promise((resolve, reject) => {
             db.get('SELECT id FROM users WHERE email = ?', [email], (err, row) => {
@@ -94,6 +96,7 @@ app.post('/api/register', async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ error: '既に存在するメールアドレスです' });
         }
+        */
 
         // パスワードハッシュ化 (正常動作)
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -412,7 +415,7 @@ app.get('/api/health', (req, res) => {
         if (err) {
             return res.status(500).json({ ok: false, db: false, message: 'DB接続に失敗しました！' });
         }
-        res.json({ ok: true, db: true, message: 'ユジンのサーバーは生きてるよ！' });
+        res.json({ ok: true, db: true, message: 'サーバーは生きてるよ！' });
     });
 });
 
